@@ -1,0 +1,39 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "chendu36/multi-client",
+            "hostname": "client",
+            "essential": false,
+            "memory": 256
+        },
+        {
+            "name": "server",
+            "image": "chendu36/multi-server",
+            "hostname": "api",
+            "essential": false,
+            "memory": 256
+        },
+        {
+            "name": "worker",
+            "image":"chendu36/multi-worker",
+            "hostname": "worker",
+            "essential":false,
+            "memory": 256
+        },
+        {
+            "name": "nginx",
+            "image":"chendu36/multi-nginx",            
+            "essential": true,
+            "memory": 256,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
